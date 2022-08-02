@@ -20,3 +20,19 @@ The aim of DEXagna is to provide a solution that meets the needs of all users:
 * protocols who want liquidity for their token
 
 
+# Frontend
+At least two frontend UIs needed:
+* Swap
+* Liquidity Provider details (_we need to agree on what features to add here_)
+
+
+# Backend
+
+
+# Contracts
+* Swap
+* Pool
+
+
+
+

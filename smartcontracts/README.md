@@ -1,13 +1,24 @@
-# Sample Hardhat Project
+# Uniswap V2
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+[![Actions Status](https://github.com/Uniswap/uniswap-v2-core/workflows/CI/badge.svg)](https://github.com/Uniswap/uniswap-v2-core/actions)
+[![Version](https://img.shields.io/npm/v/@uniswap/v2-core)](https://www.npmjs.com/package/@uniswap/v2-core)
 
-Try running some of the following tasks:
+In-depth documentation on Uniswap V2 is available at [uniswap.org](https://uniswap.org/docs).
 
-```shell
-npx hardhat help
-npx hardhat test
-GAS_REPORT=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
-```
+The built contract artifacts can be browsed via [unpkg.com](https://unpkg.com/browse/@uniswap/v2-core@latest/).
+
+# Local Development
+
+The following assumes the use of `node@>=10`.
+
+## Install Dependencies
+
+`yarn`
+
+## Compile Contracts
+
+`yarn compile`
+
+## Run Tests
+
+`yarn test`

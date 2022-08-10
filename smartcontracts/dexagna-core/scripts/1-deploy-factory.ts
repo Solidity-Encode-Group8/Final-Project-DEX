@@ -57,13 +57,19 @@ async function main() {
   console.log("Completed");
   console.log(`UniswapFactory Contract deployed at ${uniswapV2FactoryContract.address}`);
 
+  
   //SOME IMPORTANT TRANSACTIONS
   const init_code_hash = await uniswapV2FactoryContract.INIT_CODE_HASH();
   console.log(`INIT_CODE_HASH is ${init_code_hash}`);
-  //console.log(`INIT_CODE_HASH in string is ${ethers.utils.parseBytes32String(init_code_hash)}`);
+  
+  
+  
+  //const globalBaseFees_address = await uniswapV2FactoryContract.globalBaseFees();
+  //console.log(`globalBaseFees address is ${globalBaseFees_address}`);
 
-  const globalBaseFees_address = await uniswapV2FactoryContract.globalBaseFees();
-  console.log(`globalBaseFees address is ${globalBaseFees_address}`);
+  //const lasaToken_address = await uniswapV2FactoryContract.lasaToken_address();
+  //console.log(`LASA token address is ${lasaToken_address}`);
+
   /*
   const tx = await nftCollectionContract.safeMint(mintToAddress, nftIndex,{value: ethers.utils.parseEther("0.0000001")});
   console.log("Awaiting confirmations");

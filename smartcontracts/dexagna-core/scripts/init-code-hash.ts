@@ -61,7 +61,7 @@ async function main() {
   */
   
   const uniswapV2FactoryContract: UniswapV2Factory = new ethers.Contract(
-    "0x84CBB2d124eF272dD1230024f963aB6ed07f2bb9",
+    "0x666C1B3e5a032e4e621Dbb93993eda28b8b2fc65",
     uniswapV2FactoryJson.abi,
     signer
   ) as UniswapV2Factory;

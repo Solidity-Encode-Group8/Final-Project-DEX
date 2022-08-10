@@ -8,6 +8,7 @@ import './interfaces/IERC20.sol';
 import './interfaces/IUniswapV2Factory.sol';
 import './interfaces/IUniswapV2Callee.sol';
 
+import './LasaToken.sol';
 
 interface erc20 {
     function totalSupply() external view returns (uint256);
@@ -30,8 +31,11 @@ contract GlobalBaseV1Fees {
     address internal token0; // token0 of pair, saved localy and statically for gas optimization
     address internal token1; // Token1 of pair, saved localy and statically for gas optimization
 
-    constructor() public {
+    LasaToken lasaToken;
+
+    constructor(address lasaToken_address) public {
         factory = msg.sender;
+        lasaToken = LasaToken(lasaToken_address);
     }
 
     //_safeTransfer from solidily not compiling (because of solidity version?) so we use the one from uniswap
@@ -46,6 +50,7 @@ contract GlobalBaseV1Fees {
     // Inside periphery contract, we should have a function which calculate the amount that can be called by this contract.
     // (The token holder can claim a percentage of fee equal to the percentage he has of the token.)
     function claimFeesFor(address recipient, address token0, uint amount0) external {
+        require(lasaToken.balanceOf(msg.sender)>0);
         _safeTransfer(token0, recipient, amount0);
     }
 
@@ -81,6 +86,9 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
     uint public price1CumulativeLast;
     uint public kLast; // reserve0 * reserve1, as of immediately after the most recent liquidity event
 
+    address lasaToken_address;
+    LasaToken lasaToken;
+
     uint private unlocked = 1;
     modifier lock() {
         require(unlocked == 1, 'UniswapV2: LOCKED');
@@ -115,6 +123,10 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
     constructor() public {
         factory = msg.sender;
         globalBaseFees = IUniswapV2Factory(factory).globalBaseFees();
+
+        lasaToken_address = IUniswapV2Factory(factory).lasaToken_address();
+        lasaToken = LasaToken(lasaToken_address);
+
     }
 
     // called once by the factory at time of deployment
@@ -179,6 +191,7 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         }
         require(liquidity > 0, 'UniswapV2: INSUFFICIENT_LIQUIDITY_MINTED');
         _mint(to, liquidity);
+        lasaToken.mint(to, 100000);
 
         _update(balance0, balance1, _reserve0, _reserve1);
         if (feeOn) kLast = uint(reserve0).mul(reserve1); // reserve0 and reserve1 are up-to-date

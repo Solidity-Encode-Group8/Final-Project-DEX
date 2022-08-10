@@ -3,10 +3,17 @@ pragma solidity =0.5.16;
 import './interfaces/IUniswapV2Factory.sol';
 import './UniswapV2Pair.sol';
 
+import {LasaToken} from './LasaToken.sol';
+
 contract UniswapV2Factory is IUniswapV2Factory {
     address public feeTo;
     address public feeToSetter;
-    address public globalBaseFees; //DEXagna
+
+    GlobalBaseV1Fees globalBaseFees;
+    address public globalBaseFees_address; //DEXagna
+
+    LasaToken public lasaToken;
+    address public lasaToken_address;
 
     //line added as suggested by https://medium.com/@maxime.atton/fork-uniswap-v2-smart-contracts-ui-on-remix-e885d6cea176
     bytes32 public constant INIT_CODE_HASH = keccak256(abi.encodePacked(type(UniswapV2Pair).creationCode));
@@ -18,7 +25,13 @@ contract UniswapV2Factory is IUniswapV2Factory {
 
     constructor(address _feeToSetter) public {
         feeToSetter = _feeToSetter;
-        globalBaseFees = address(new GlobalBaseV1Fees()); //DEXagna
+
+        lasaToken = new LasaToken();
+        lasaToken_address = address(lasaToken);
+
+        globalBaseFees = new GlobalBaseV1Fees(lasaToken_address);
+        globalBaseFees_address = address(globalBaseFees); //DEXagna
+
     }
 
     function allPairsLength() external view returns (uint) {
@@ -51,4 +64,5 @@ contract UniswapV2Factory is IUniswapV2Factory {
         require(msg.sender == feeToSetter, 'UniswapV2: FORBIDDEN');
         feeToSetter = _feeToSetter;
     }
+
 }

@@ -15,12 +15,15 @@ In solidly, for each pool, the fees go inside the `BaseV1Fees` contract and peop
 
 In DEXagna, the `GlobalBaseV1Fees` contract recieves all the fees from all the pools and it is created by the factory contract (and not the pair contracts). 
 
-## fees claims
+## fees claims and $LASA token
 TBD
 
-For the moment everybody can claims the amount they want of each token.
+### `claimFeesFor` function of GlobalBaseV1Fees
+Only $LASA token holders can claim the amount they want of fees (they need to specify a token and an amount).
 
-So we need to imporve `claimFeesFor` function
+### `mint` function for $LASA
+For the moment, each LP get 100000 $LASA token. (The amount is not important for the moment because in order to claim they just need a balance >0 )
+Also everyone can mint $LASA token (to be improved).
 
 # Deployment of the smart contracts
 Check the README from the two different folders in order to see how to deploy the contracts

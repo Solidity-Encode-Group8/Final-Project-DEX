@@ -1,6 +1,10 @@
 import { ethers } from "ethers";
 import "dotenv/config";
+//import * as uniswapV2FactoryJson from "../artifacts/contracts/UniswapV2Factory.sol/UniswapV2Factory.json";
+//import * as uniswapV2ERC20Json from "../artifacts/contracts/UniswapV2ERC20.sol/UniswapV2ERC20.json";
+//import * as uniswapV2PairJson from "../artifacts/contracts/UniswapV2Pair.sol/UniswapV2Pair.json";
 import * as uniswapV2Router02Json from "../artifacts/contracts/UniswapV2Router02.sol/UniswapV2Router02.json";
+import { UniswapV2Router02 } from "../typechain-types";
 
 // This key is already public on Herong's Tutorial Examples - v1.03, by Dr. Herong Yang
 // Do never expose your keys like this
@@ -42,22 +46,42 @@ async function main() {
   }
 
   //DEPLOYING CONTRACT
-  console.log("Deploying uniswapFactory contract");
-  const uniswapV2Router02Factory = new ethers.ContractFactory(
+  const uniswapV2Router02Contract: UniswapV2Router02 = new ethers.Contract(
+    "0xeE5406F2fb96e663B2A68B1b9b4038D5A8D744dE", 
     uniswapV2Router02Json.abi,
-    uniswapV2Router02Json.bytecode,
     signer
-  );
+  ) as UniswapV2Router02;
 
-  const uniswapV2Router02Contract = await uniswapV2Router02Factory.deploy(
-    "0x20D47c652537cE01b6fee010e298825242b00c99",
-    "0xc778417E063141139Fce010982780140Aa0cD5Ab");
-  console.log("Awaiting confirmations");
-  await uniswapV2Router02Contract.deployed();
-  console.log("Completed");
-  console.log(`UniswapV2Router02 Contract deployed at ${uniswapV2Router02Contract.address}`);
+  console.log("calling smartcontract");
+
 
   //SOME IMPORTANT TRANSACTIONS
+  const timestamp = (await provider.getBlock("latest")).timestamp;
+  console.log(`block timestamp is ${timestamp}`);
+  const futur_timestamp = timestamp+10000000;
+
+  const pasta_token_address = "0xbc54f78E5Fa3C60A6ACBD87C9468a88D89F045F4";
+  const pizza_token_address = "0xF8A8a6625f89C5AaDaeACd42efC31aA10e75F4a4";
+  const tx = await uniswapV2Router02Contract.addLiquidity(
+    pasta_token_address, 
+    pizza_token_address,
+    ethers.utils.parseEther('101'),
+    ethers.utils.parseEther('101'),
+    ethers.utils.parseEther('100'),
+    ethers.utils.parseEther('100'),
+    "0xc046cB6389571B43D09008828D6bC25e9997904E",
+    futur_timestamp,
+    {
+      gasLimit: 300000,
+      nonce: undefined,
+    });
+
+  console.log("Awaiting confirmations");
+  await tx.wait();
+  console.log(`Pair Pool created. Hash: ${tx.hash}`);
+
+  //const init_code_hash = await uniswapV2Router02Contract.INIT_CODE_HASH();
+  //console.log(`INIT_CODE_HASH is ${init_code_hash}`);
   
 
   /*

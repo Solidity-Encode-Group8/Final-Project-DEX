@@ -28,22 +28,11 @@ const config: HardhatUserConfig = {
 
 ```
 Using address 0xc046cB6389571B43D09008828D6bC25e9997904E
-Wallet balance 0.27333479583934484
+Wallet balance 0.10969781006309745
 Deploying uniswapFactory contract
 Awaiting confirmations
 Completed
-UniswapV2Router02 Contract deployed at 0xA0E5d323aF47117E5a6840Ee0354CC15A884Ab87
-```
-
-
-OLD CONTRACT
-```
-Using address 0xc046cB6389571B43D09008828D6bC25e9997904E
-Wallet balance 0.28757326400189176
-Deploying uniswapFactory contract
-Awaiting confirmations
-Completed
-UniswapV2Router02 Contract deployed at 0x338D0d78d0bAE5E8Af185D523F38BedbdFf4d500
+UniswapV2Router02 Contract deployed at 0xeE5406F2fb96e663B2A68B1b9b4038D5A8D744dE
 
 ```
 

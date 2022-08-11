@@ -64,11 +64,12 @@ async function main() {
   
   
   
-  //const globalBaseFees_address = await uniswapV2FactoryContract.globalBaseFees();
-  //console.log(`globalBaseFees address is ${globalBaseFees_address}`);
-
-  //const lasaToken_address = await uniswapV2FactoryContract.lasaToken_address();
-  //console.log(`LASA token address is ${lasaToken_address}`);
+  const globalBaseFees_address = await uniswapV2FactoryContract.globalBaseFees_address();
+  console.log(`globalBaseFees address is ${globalBaseFees_address}`);
+  
+  const lasaToken_address = await uniswapV2FactoryContract.lasaToken_address();
+  console.log(`LASA token address is ${lasaToken_address}`);
+  
 
   /*
   const tx = await nftCollectionContract.safeMint(mintToAddress, nftIndex,{value: ethers.utils.parseEther("0.0000001")});

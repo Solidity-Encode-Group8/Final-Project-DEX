@@ -7,7 +7,6 @@ import './libraries/SafeMath.sol';
 contract LasaToken is IUniswapV2ERC20  {
 
     address public factory;
-    address public globalBaseFees;
 
     using SafeMath for uint;
 

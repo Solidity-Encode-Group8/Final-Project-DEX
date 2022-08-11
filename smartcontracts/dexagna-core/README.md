@@ -32,24 +32,13 @@ import { UniswapV2Factory } from "../typechain-types";
 
 ```
 Using address 0xc046cB6389571B43D09008828D6bC25e9997904E
-Wallet balance 0.2775180123783882
+Wallet balance 0.11878688840768786
 Deploying uniswapFactory contract
 Awaiting confirmations
 Completed
-UniswapFactory Contract deployed at 0xf2F343c63F94AfC159D16f603F33522deA1848b1
-INIT_CODE_HASH is 0xae17ecc001cb9f1d2494d8c926f48cd66ea62d037cc4ae69a9d23ca456a8e680
-globalBaseFees address is 0x03EE0cB6D1394fE86B80AcE897273fAf1E210C8F
-```
-
-OLD ONE without the fee contract
-```
-Using address 0xc046cB6389571B43D09008828D6bC25e9997904E
-Wallet balance 0.29124845455579457
-Deploying uniswapFactory contract
-Awaiting confirmations
-Completed
-UniswapFactory Contract deployed at 0x073Fc578c8791b35454Ec4b62847d6766eb2Fc12
-INIT_CODE_HASH is 0x8e5230e05502edb2bf1b369829a47de5e784ecfe21f752036fbba520ba4e459b
-
+UniswapFactory Contract deployed at 0x20D47c652537cE01b6fee010e298825242b00c99
+INIT_CODE_HASH is 0x71bccf26330e73b52c875ccb859474f176fae7bdf30e386673da83cc82167c8e
+globalBaseFees address is 0x33CbBAd815B59EcE2212321D7D4450e911571b95
+LASA token address is 0xFFE4297581A5972f6883D5Ec26d75cCA5ad714cB
 ```
 

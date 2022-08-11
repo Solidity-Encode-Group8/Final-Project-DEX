@@ -1,6 +1,9 @@
 import { ethers } from "ethers";
 import "dotenv/config";
-import * as uniswapV2Router02Json from "../artifacts/contracts/UniswapV2Router02.sol/UniswapV2Router02.json";
+import * as uniswapV2FactoryJson from "../artifacts/contracts/UniswapV2Factory.sol/UniswapV2Factory.json";
+//import * as uniswapV2ERC20Json from "../artifacts/contracts/UniswapV2ERC20.sol/UniswapV2ERC20.json";
+//import * as uniswapV2PairJson from "../artifacts/contracts/UniswapV2Pair.sol/UniswapV2Pair.json";
+import { UniswapV2Factory } from "../typechain-types";
 
 // This key is already public on Herong's Tutorial Examples - v1.03, by Dr. Herong Yang
 // Do never expose your keys like this
@@ -42,23 +45,46 @@ async function main() {
   }
 
   //DEPLOYING CONTRACT
+  /*
   console.log("Deploying uniswapFactory contract");
-  const uniswapV2Router02Factory = new ethers.ContractFactory(
-    uniswapV2Router02Json.abi,
-    uniswapV2Router02Json.bytecode,
+  const uniswapV2FactoryFactory = new ethers.ContractFactory(
+    uniswapV2FactoryJson.abi,
+    uniswapV2FactoryJson.bytecode,
     signer
   );
 
-  const uniswapV2Router02Contract = await uniswapV2Router02Factory.deploy(
-    "0x20D47c652537cE01b6fee010e298825242b00c99",
-    "0xc778417E063141139Fce010982780140Aa0cD5Ab");
+  const uniswapV2FactoryContract = await uniswapV2FactoryFactory.deploy("0xc046cB6389571B43D09008828D6bC25e9997904E");
   console.log("Awaiting confirmations");
-  await uniswapV2Router02Contract.deployed();
+  await uniswapV2FactoryContract.deployed();
   console.log("Completed");
-  console.log(`UniswapV2Router02 Contract deployed at ${uniswapV2Router02Contract.address}`);
+  console.log(`UniswapFactory Contract deployed at ${uniswapV2FactoryContract.address}`);
+  */
+  
+  const uniswapV2FactoryContract: UniswapV2Factory = new ethers.Contract(
+    "0x20D47c652537cE01b6fee010e298825242b00c99", //0xc2b95CD41F80367dA3f86B563333F1DBfD91248E
+    uniswapV2FactoryJson.abi,
+    signer
+  ) as UniswapV2Factory;
+
+  console.log("calling smartcontract");
+
 
   //SOME IMPORTANT TRANSACTIONS
   
+  //creation of a pair pool
+  const timestamp = (await provider.getBlock("latest")).timestamp;
+  console.log(`block timestamp is ${timestamp}`);
+  const futur_timestamp = timestamp+10000000;
+
+  const pasta_token_address = "0xbc54f78E5Fa3C60A6ACBD87C9468a88D89F045F4";
+  const pizza_token_address = "0xF8A8a6625f89C5AaDaeACd42efC31aA10e75F4a4";
+  const tx = await uniswapV2FactoryContract.createPair(
+    pasta_token_address, 
+    pizza_token_address,
+    {
+      gasLimit: 300000,
+      nonce: undefined,
+    });
 
   /*
   const tx = await nftCollectionContract.safeMint(mintToAddress, nftIndex,{value: ethers.utils.parseEther("0.0000001")});

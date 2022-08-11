@@ -22,6 +22,7 @@ interface erc20 {
 
 // ADDED FOR DEXAGNA 
 // GlobalBaseV1Fees inspired by BaseV1Fees from solidly. All the fees go directly into this contract
+
 contract GlobalBaseV1Fees {
     bytes4 private constant SELECTOR = bytes4(keccak256(bytes('transfer(address,uint256)')));
 
@@ -49,22 +50,13 @@ contract GlobalBaseV1Fees {
     // function need to be call by periphery contract, and token holders need to call periphery contract
     // Inside periphery contract, we should have a function which calculate the amount that can be called by this contract.
     // (The token holder can claim a percentage of fee equal to the percentage he has of the token.)
-    function claimFeesFor(address recipient, address token0, uint amount0) external {
+    function claimFeesFor(address _recipient, address _token0, uint _amount0) external {
         require(lasaToken.balanceOf(msg.sender)>0);
-        _safeTransfer(token0, recipient, amount0);
+        _safeTransfer(_token0, _recipient, _amount0);
     }
-
-    // This fallback function will keep all the balances
-    /*
-    TBD
-    function() public payable
-    {
-        feeBalancePerToken[msg.sender] += msg.value;
-    }
-    */
-
 
 }
+
 
 contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
     using SafeMath  for uint;
@@ -76,7 +68,7 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
     address public factory;
     address public token0;
     address public token1;
-    address public globalBaseFees; //DEXagna
+    address public globalBaseFees_address; //DEXagna
 
     uint112 private reserve0;           // uses single storage slot, accessible via getReserves
     uint112 private reserve1;           // uses single storage slot, accessible via getReserves
@@ -122,7 +114,7 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
 
     constructor() public {
         factory = msg.sender;
-        globalBaseFees = IUniswapV2Factory(factory).globalBaseFees();
+        globalBaseFees_address = IUniswapV2Factory(factory).globalBaseFees_address();
 
         lasaToken_address = IUniswapV2Factory(factory).lasaToken_address();
         lasaToken = LasaToken(lasaToken_address);
@@ -280,16 +272,11 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
 
     // ADDED FOR DEXAGNA 
     // Accrue fees on specific token
-    function _update0(address token0, uint amount) internal {
-        _safeTransfer(token0, globalBaseFees, amount); // transfer the fees out to BaseV1Fees
-        /*
-        uint256 _ratio = amount * 1e18 / totalSupply; // 1e18 adjustment is removed during claim
-        if (_ratio > 0) {
-            index0 += _ratio;
-        }
-        emit Fees(msg.sender, amount, 0);
-        */
+    
+    function _update0(address _token0, uint _amount) internal {
+        _safeTransfer(_token0, globalBaseFees_address, _amount); // transfer the fees out to BaseV1Fees
     }
+    
 
 
 }

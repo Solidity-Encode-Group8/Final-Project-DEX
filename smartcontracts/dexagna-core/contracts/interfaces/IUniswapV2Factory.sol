@@ -17,5 +17,5 @@ interface IUniswapV2Factory {
     function setFeeToSetter(address) external;
 
 
-    function globalBaseFees() external view returns (address);
+    function globalBaseFees_address() external view returns (address);
 }

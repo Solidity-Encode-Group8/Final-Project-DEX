@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.7.2",
-    "dotenv": "^16.0.1",
-    "@uniswap/lib": "4.0.1-alpha"
+    "@uniswap/lib": "4.0.1-alpha",
+    "dotenv": "^16.0.1"
   }
 }

@@ -12,7 +12,7 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const FACTORY_ADDRESS = '0x6b272b1ea324fac0b9961982edbe4d99f3b90b5f';
 export const ROUTER_ADDRESS = '0x4827ef09ee58c77b9c7323a519fac0522cac2e1e';
 
-export const LP_TOKEN_NAME = 'SDexagna';
+export const LP_TOKEN_NAME = 'Dexagna';
 export const LP_TOKEN_SYMBOL = 'LASA';
 
 // a list of tokens by chain

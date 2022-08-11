@@ -6,7 +6,6 @@ import { NavLink, Link as HistoryLink } from 'react-router-dom';
 
 import { ArrowLeft } from 'react-feather';
 import { RowBetween } from '../Row';
-// import QuestionHelper from '../QuestionHelper'
 import Settings from '../Settings';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'state';

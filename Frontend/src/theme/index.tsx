@@ -59,19 +59,19 @@ export function colors(darkMode: boolean): Colors {
     advancedBG: darkMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.6)',
 
     //primary colors
-    primary1: '#2792d6',
-    primary2: '#3099db',
-    primary3: '#389fe0',
-    primary4: '#54afe8',
-    primary5: '#5fb3e8',
+    primary1: '#d67627',
+    primary2: '#db8630',
+    primary3: '#e09738',
+    primary4: '#e89954',
+    primary5: '#e89f5f',
 
     // color text
     primaryText1: darkMode ? '#fff' : '#000',
 
     // secondary colors
-    secondary1: '#3B6A9C',
-    secondary2: darkMode ? '#17000b26' : '#F6DDE8',
-    secondary3: darkMode ? '#17000b26' : '#FDEAF1',
+    secondary1: '#9c6d3b',
+    secondary2: darkMode ? '#17000b26' : '#ddf6f4',
+    secondary3: darkMode ? '#17000b26' : '#eafdf0',
 
     // other
     red1: '#FD4040',
@@ -120,7 +120,7 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
   return <StyledComponentsThemeProvider theme={themeObject}>{children}</StyledComponentsThemeProvider>;
 }
 
-const TextWrapper = styled(Text)<{ color: keyof Colors }>`
+const TextWrapper = styled(Text) <{ color: keyof Colors }>`
   color: ${({ color, theme }) => (theme as any)[color]};
 `;
 
